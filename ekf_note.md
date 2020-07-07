@@ -10,7 +10,7 @@
 		* (July 6th) Progress: Built a new branch to keep ekf lib related code, removed all ekf lib related stuff before submit the pull request.
 *  Multi-process LINUX server
 	* I learned from Wenyuan that UDP will not affect the result a lot comparing with TCP in our simulation environment. I will use int array to keep track the pid-port relation in the UDP server.
-		* (July 6th) Solved: 
+		* (July 6th) Solved: @Wenyuan Please correct me if my design below is wrong.
 			* 1. Client sent a message to Server use the default port (e.g. 8080). 
 			* 2. Server received the message from Client and assign a new port for this Client, e.g. Client A is the 1st client that trying to connect to the Server, Server will assign port number 8081 (= 8080 + 1) only for Client A. 
 			* 3. Server fork a new process, whithin that process Server accept data use the new port.
