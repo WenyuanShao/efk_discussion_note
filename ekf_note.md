@@ -15,3 +15,19 @@
 			* 2. Server received the message from Client and assign a new port for this Client, e.g. Client A is the 1st client that trying to connect to the Server, Server will assign port number 8081 (= 8080 + 1) only for Client A. 
 			* 3. Server fork a new process, whithin that process Server accept data use the new port.
 			* 4. Client A received the new port number, and start sending data to Server using the newly assigned port.
+### JUL 8th
+*  Multi-process LINUX server
+	* @Wenyuan challenged the my UDP server design recorded on July 6th.
+		* Overhead when the Client trying to communicate with the Server, the Client needs to notice the server by sending a message to server, and wait for the message from the Server side before sending the data.
+		* The suggested way to avoid the communication stage at the beginning:
+			* 1. Use an int array to track the client port and pid. E.g. Client A use port N to send requests, the server checks whether this port has ever been sending requests before by looking up the pid-port int array. 
+				* If pid[N] = 0, then Client A is the first time send request to Server, use fork() and record pid[N] = pid_number. 
+				* Otherwise, according to the recorded pid_number in pid[N], put the data from Client A in a queue. 
+			* 2. Each client occupies a queue, the corresponding process read the data from the related queue. 
+			* 3. @Wenyuan does my understanding correct? 
+	* Questions:
+		* Does the server use only one parent process to receive requests, instead of using multi-process to receive requests?
+		* Checking port number for each request can be considered a overhead?
+		* Send the request from parent process to child process will have a big overhead or not?
+		* Is there a way to avoid the inter process communication?
+			
